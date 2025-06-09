@@ -238,6 +238,7 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+            background-attachment: fixed;
         }
 
         .hero-section::before {
@@ -271,26 +272,22 @@
             height: 350px;
             border-radius: 50%;
             overflow: hidden;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 5px solid rgba(255, 255, 255, 0.08); /* Subtle border, no contrast */
+            box-shadow: none; /* Remove outside contrast shadow */
             transition: var(--transition);
             position: relative;
+            animation: glowPulse 2.5s infinite alternate;
         }
 
-        .profile-img::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    background: linear-gradient(45deg, var(--primary-color), var(--accent-color)) border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); /* Standard property */
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude; /* Standard property for broader compatibility */
-    pointer-events: none;
-}
+        @keyframes glowPulse {
+            0% {
+                box-shadow: none;
+            }
 
+            100% {
+                box-shadow: none;
+            }
+        }
 
         @media (hover: hover) and (pointer: fine) {
             .profile-img:hover {
@@ -334,6 +331,23 @@
             transition: var(--transition);
             backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: floatSkill 4s ease-in-out infinite;
+            box-shadow: 0 0 10px 2px var(--primary-color, #4361ee);
+        }
+
+        @keyframes floatSkill {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px) scale(1.05);
+            }
+        }
+
+        .skill-badge:hover {
+            box-shadow: 0 0 24px 6px var(--accent-color, #f72585);
         }
 
         .skill-badge i {
@@ -351,59 +365,6 @@
             }
         }
 
-
-
-
-
-
-
-
-
-/* Dark Mode Container */
-.glass-card {
-    padding: 20px;
-    border-radius: 12px;
-    background: #000000; /* Fully Black */
-    text-align: center;
-    box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.1);
-}
-
-/* Skill Badges */
-.skill-badge {
-    padding: 10px;
-    border-radius: 10px;
-}
-
-/* White Icons */
-.skill-badge i {
-    font-size: 3rem; /* Slightly smaller for a premium feel */
-    color: #ffffff; /* White icons */
-    transition: 0.3s ease-in-out;
-}
-
-/* Hover Effect */
-.skill-badge:hover i {
-    color: #b0b0b0; /* Soft gray hover effect */
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
         /* Experience Cards */
         .exp-card {
             height: 100%;
@@ -443,6 +404,11 @@
             width: 100%;
             border-top-left-radius: 16px;
             border-top-right-radius: 16px;
+            transition: transform 0.5s cubic-bezier(.4, 2, .6, 1);
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.08) rotate(-2deg);
         }
 
         /* Floating Elements */
@@ -475,15 +441,42 @@
             background: rgba(255, 255, 255, 0.1);
             transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: socialPulse 2.5s infinite alternate;
         }
 
-        @media (hover: hover) and (pointer: fine) {
-            .social-icon:hover {
-                transform: translateY(-5px) scale(1.1);
-                background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-                color: white !important;
-                box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
-                border-color: transparent;
+        @keyframes socialPulse {
+            0% {
+                box-shadow: 0 0 0 0 var(--accent-color, #f72585);
+            }
+
+            100% {
+                box-shadow: 0 0 20px 4px var(--primary-color, #4361ee);
+            }
+        }
+
+        .social-icon:hover {
+            animation: bounce 0.5s;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-10px);
+            }
+
+            50% {
+                transform: translateY(0);
+            }
+
+            70% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0);
             }
         }
 
@@ -544,98 +537,49 @@
             }
         }
 
-        /* Responsive Adjustments */
-        @media (max-width: 992px) {
-            section {
-                padding: 4rem 0;
-            }
-
-            .profile-img {
-                width: 280px;
-                height: 280px;
-            }
+        /* Premium Black Card for Skills, Tools, and Contact */
+        .premium-black-card {
+            background: #101018 !important;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 8px 32px 0 rgba(67, 97, 238, 0.18), 0 1.5px 8px 0 #f7258533;
+            border-radius: 18px;
+            position: relative;
+            overflow: visible;
         }
 
-        @media (max-width: 768px) {
-            .hero-section {
-                min-height: auto;
-                padding: 4rem 0;
-            }
-
-            .hero-img {
-                order: -1;
-                margin-bottom: 2rem;
-            }
-
-            .navbar-nav {
-                padding: 1rem 0;
-                gap: 0.75rem;
-            }
-
-            .nav-hover {
-                width: 100%;
-                text-align: center;
-                margin: 0.25rem 0;
-            }
-
-            .social-container {
-                justify-content: center !important;
-            }
-
-            .footer-link,
-            .contact-item {
-                text-align: center;
-            }
-
-            /* Fix overflowing content */
-            .container {
-                padding-left: 15px;
-                padding-right: 15px;
-            }
-
-            .profile-img {
-                width: 220px;
-                height: 220px;
-            }
-
-            .modern-btn,
-            .modern-btn-outline {
-                display: block;
-                width: 100%;
-                margin-bottom: 10px;
-            }
+        .premium-black-card:before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 20px;
+            z-index: 0;
+            background: linear-gradient(120deg, #4361ee, #f72585, #3a0ca3);
+            opacity: 0.5;
+            filter: blur(8px);
+            animation: aboutBorderAnim 4s linear infinite;
         }
 
+        /* Ensure content is above the border effect */
+        .premium-black-card>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Remove glass-card background for these sections */
+        #skills .glass-card,
+        #tools .glass-card,
+        #contact .glass-card {
+            background: transparent !important;
+            border: none;
+            box-shadow: none;
+        }
+
+        /* Responsive fix for black card */
         @media (max-width: 576px) {
-            .profile-img {
-                width: 200px;
-                height: 200px;
-            }
-
-            .section-title::after {
-                width: 100%;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            #dynamic-text {
-                font-size: 1.5rem;
-                min-height: 80px;
-                /* Prevent content shift */
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            /* Ensure text doesn't overflow */
-            .skill-badge {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
+            .premium-black-card {
+                border-radius: 12px;
             }
         }
-
 
         /* Animation for dynamic text */
         #dynamic-text {
@@ -668,6 +612,178 @@
             background: linear-gradient(var(--primary-color), var(--accent-color));
             border-radius: 10px;
         }
+
+        /* Animated SVG Section Dividers */
+        .section-divider {
+            display: block;
+            width: 100%;
+            height: 80px;
+            margin-bottom: -2px;
+        }
+
+        /* Animated cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--accent-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s cubic-bezier(.4, 2, .6, 1), background 0.2s;
+        }
+
+        /* Scroll progress bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            z-index: 9999;
+            transition: width 0.2s;
+        }
+
+        /* Premium animated floating shapes for Skills section */
+        .floating-skill-shape {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .shape1 {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .shape2 {
+            top: 25%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+
+        .shape3 {
+            bottom: 20%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+
+        .shape4 {
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes aboutGlow {
+            0% {
+                box-shadow: 0 0 24px 4px #f72585, 0 0 0 6px #4361ee55;
+            }
+
+            100% {
+                box-shadow: 0 0 48px 12px #4361ee, 0 0 0 12px #f7258555;
+            }
+        }
+
+        .premium-about-card {
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 8px 32px 0 rgba(67, 97, 238, 0.15), 0 1.5px 8px 0 #f7258533;
+            position: relative;
+            overflow: visible;
+        }
+
+        .premium-about-card:before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 18px;
+            z-index: 0;
+            background: linear-gradient(120deg, #4361ee, #f72585, #3a0ca3);
+            opacity: 0.7;
+            filter: blur(6px);
+            animation: aboutBorderAnim 4s linear infinite;
+        }
+
+        @keyframes aboutBorderAnim {
+            0% {
+                filter: blur(6px) hue-rotate(0deg);
+            }
+
+            100% {
+                filter: blur(6px) hue-rotate(360deg);
+            }
+        }
+
+        .about-typewriter {
+            min-height: 32px;
+            font-family: 'Poppins', monospace;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .premium-project-card {
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 8px 32px 0 rgba(67, 97, 238, 0.18), 0 1.5px 8px 0 #f7258533;
+            transition: box-shadow 0.4s, border 0.4s;
+        }
+
+        .premium-project-card:hover {
+            box-shadow: 0 16px 48px 0 rgba(67, 97, 238, 0.28), 0 3px 16px 0 #f7258577;
+            border-color: var(--accent-color);
+        }
+
+        .project-img-wrapper {
+            position: relative;
+        }
+
+        .project-badge.premium-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(45deg, #f72585, #4361ee);
+            color: #fff;
+            border-radius: 50%;
+            padding: 0.4em 0.5em;
+            font-size: 1.1em;
+            box-shadow: 0 2px 8px #3a0ca355;
+            z-index: 2;
+        }
+
+        .project-btn {
+            padding: 0.4em 0.7em;
+            font-size: 1.1em;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-btn i {
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -676,9 +792,7 @@
     <nav id="mainNavbar" class="navbar navbar-expand-lg fixed-top">
         <div class="container">
             <a class="navbar-brand gradient-text fw-bold fs-3" href="/">
-                <span class="d-flex align-items-center">
-                   
-                </span>
+              
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="fas fa-bars"></i>
@@ -715,7 +829,7 @@
                             <i class="fas fa-paper-plane me-1"></i> Contact
                         </a>
                     </li>
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link nav-hover dropdown-toggle" href="#" id="resumeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-file-alt me-1"></i> Resume
@@ -733,211 +847,161 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="container">
+    <section id="home" class="hero-section position-relative">
+        <!-- Animated Particles Background -->
+        <div id="tsparticles" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:-3;"></div>
+        <div class="container position-relative" style="z-index:2;">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-6 order-lg-2 text-center" data-aos="fade-left">
                     <div class="profile-img mx-auto hero-img floating">
                         <img src="image/Pratush.jpg" alt="Profile Thumbnail" class="img-fluid">
                     </div>
                 </div>
-                <div class="col-lg-6 order-lg-1 text-center" data-aos="fade-right">
-                    <div class="d-flex flex-column align-items-center justify-content-center h-100">
-                        <h1 class="display-5 fw-bold gradient-text mb-3"> <span class="text-white">Hii There!</span>
-                            <br>      <span class="text-white">I'M</span> <span class="text-gradient">Pratyush Kumar Pandey</span>
-                        </h1>
-
-                        <!-- Centered "B.Tech CSIT | KL University" -->
-                        <p class="lead fs-4 mb-4 text-center">B.Tech CSE | KL University</p>
-
-                        <!-- Centered dynamic text -->
-                        <div class="text-center mb-4">
-                            <h3 id="dynamic-text" class="fw-bold gradient-text fs-2">Full Stack Developer</h3>
-                        </div>
-
-                        <!-- Centered social icons -->
-                        <div class="d-flex justify-content-center gap-3 mt-0 mb-5">
-                            <a href="https://www.linkedin.com/in/pratyush-pandey1/" target="_blank" class="social-icon">
-                                <i class="fab fa-linkedin-in fa-lg"></i>
-                            </a>
-                            <a href="https://github.com/its-pratyushpandey"  target="_blank" class="social-icon">
-                                <i class="fab fa-github fa-lg"></i>
-                            </a>
-                            <a href="https://www.codechef.com/users/kl_2300030557"target="_blank" class="social-icon">
-                                <i class="fas fa-utensils fa-lg"></i>
-                            </a>
-                        </div>
-
-                        <!-- Buttons -->
-                        <div class="d-flex flex-wrap gap-3 justify-content-center">
-                            <a href="#contact" class="modern-btn mt-2" data-aos="fade-up">
-                                <i class="fas fa-paper-plane me-2"></i>Contact Me
-                            </a>
-                            <a href="#projects" class="modern-btn modern-btn-outline mt-2" data-aos="fade-up" data-aos-delay="100">
-                                <i class="fas fa-code me-2"></i>View Projects
-                            </a>
-                        </div>
+                <div class="col-lg-6 order-lg-1 hero-content d-flex flex-column align-items-center align-items-lg-start justify-content-center h-100" data-aos="fade-right">
+                    <h1 class="display-5 fw-bold mb-3" style="line-height:1.1;">
+                        <span style="font-size:2.5rem;display:block;color:#fff;letter-spacing:1px;filter:drop-shadow(0 2px 8px #3a0ca3cc);font-family:'Poppins',sans-serif;">Hii There!</span>
+                        <span style="display:block;font-size:2.8rem;font-weight:800;letter-spacing:1px;font-family:'Poppins',sans-serif;">
+                            <span style="color:#fff;">I'M</span> <span style="color:#7b2ff2;">Pratyush Kumar Pandey</span>
+                        </span>
+                    </h1>
+                    <p class="lead fs-4 mb-2 text-center text-lg-start">B.Tech CSE | KL University</p>
+                    <div class="mb-4">
+                        <span id="dynamic-text" class="fs-2 gradient-text"></span>
                     </div>
+                    <a href="#contact" class="modern-btn mt-2" data-aos="zoom-in" data-aos-delay="300">Let's Connect <i class="fas fa-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Animated SVG Divider -->
+    <svg class="section-divider" viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,80 C480,0 960,160 1440,80 L1440,0 L0,0 Z" fill="url(#gradient1)" opacity="0.5"/><defs><linearGradient id="gradient1" x1="0" y1="0" x2="1440" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="#4361ee"/><stop offset="1" stop-color="#f72585"/></linearGradient></defs></svg>
+
+    <!-- Skills Section -->
     <section id="skills" class="py-5">
+        <!-- Premium animated floating shapes for Skills section -->
+        <!-- Removed floating-skill-shape bubbles for a cleaner background -->
+        <!-- End premium animated shapes -->
         <div class="container">
             <h2 class="text-center mb-5 section-title gradient-text" data-aos="fade-up">Technical Skills</h2>
-    
-            <div class="row">
-                <!-- Skills Section -->
-                <div class="col-12 mb-4" data-aos="zoom-in">
-                    <div class="glass-card p-4">
-                        <h4 class="text-center mb-4">Skills & Technologies</h4>
-                        <div class="d-flex flex-wrap justify-content-center gap-4">
-                            
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="JavaScript">
-                                <i class="fab fa-js fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="HTML5">
-                                <i class="fab fa-html5 fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="CSS3">
-                                <i class="fab fa-css3-alt fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="React.js">
-                                <i class="fab fa-react fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Node.js">
-                                <i class="fab fa-node-js fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="MongoDB">
-                                <i class="fas fa-leaf fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="SQL">
-                                <i class="fas fa-database fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Python">
-                                <i class="fab fa-python fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Java">
-                                <i class="fab fa-java fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Django">
-                                <i class="devicon-django-plain fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Spring Boot">
-                                <i class="devicon-spring-plain fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Linux">
-                                <i class="fab fa-linux fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="AWS">
-                                <i class="fab fa-aws fa-8x" style="color: #ffffff;"></i>
-                            </span>
-                           
-    
-                        </div>
-                    </div>
+            <div class="row justify-content-center">
+                <div class="col-12 mb-4 d-flex flex-wrap justify-content-center" data-aos="zoom-in">
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1800"><i class="devicon-python-plain colored"></i> Python</span>
+                    <span class="skill-badge" data-aos="flip-left" data-aos-delay="700"><i class="devicon-cplusplus-plain colored"></i> C++</span>
+                    <span class="skill-badge" data-aos="flip-left" data-aos-delay="1000"><i class="devicon-java-plain colored"></i> Java</span>
+                    <span class="skill-badge" data-aos="flip-left" data-aos-delay="400"><i class="devicon-react-original colored"></i> React</span>
+                    <span class="skill-badge" data-aos="flip-left" data-aos-delay="500"><i class="devicon-nodejs-plain colored"></i> Node.js</span>
+                    <span class="skill-badge" data-aos="flip-left" data-aos-delay="1400"><i class="devicon-express-original colored"></i> Express.js</span>
+                    <span class="skill-badge" data-aos="flip-left" data-aos-delay="600"><i class="devicon-mongodb-plain colored"></i> MongoDB</span>
+                                        <span class="skill-badge" data-aos="flip-left"><i class="devicon-html5-plain colored"></i> HTML5</span>
+                    <span class="skill-badge" data-aos="flip-left" data-aos-delay="100"><i class="devicon-css3-plain colored"></i> CSS3</span>
+                    <span class="skill-badge" data-aos="flip-left" data-aos-delay="200"><i class="devicon-javascript-plain colored"></i> JavaScript</span>
+                <span class="skill-badge" data-aos="flip-left" data-aos-delay="800"><i class="devicon-mysql-plain colored"></i> MySQL</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="900"><i class="devicon-spring-plain colored"></i> Spring Boot</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1900"><i class="devicon-django-plain colored"></i> Django</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1300"><i class="devicon-typescript-plain colored"></i> TypeScript</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1600"><i class="devicon-firebase-plain colored"></i> Firebase</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1700"><i class="devicon-amazonwebservices-plain colored"></i> AWS</span>
+
                 </div>
-    
-                <!-- Tools Section -->
-                <div class="col-12 mb-4" data-aos="zoom-in">
-                    <div class="glass-card p-9">
-                        <h4 class="text-center mb-4">Tools I Use</h4>
-                        <div class="d-flex flex-wrap justify-content-center gap-4">
-    
-                            <!-- UI/UX Tools -->
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Figma">
-                                <i class="fab fa-figma fa-6x" style="color: #ffffff;"></i>
-                            </span>
-    
-                            <!-- Version Control -->
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Git">
-                                <i class="fab fa-git-alt fa-6x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="GitHub">
-                                <i class="fab fa-github fa-6x" style="color: #ffffff;"></i>
-                            </span>
-    
-                            <!-- AI & Automation -->
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Amazon Q">
-                                <i class="fas fa-robot fa-6x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Tabnine (AI Code Completion)">
-                                <i class="fas fa-brain fa-6x" style="color: #ffffff;"></i>
-                            </span>
-    
-                            <!-- API Testing -->
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Postman">
-                                <i class="fas fa-flask fa-6x" style="color: #ffffff;"></i>
-                            </span>
-    
-                            <!-- CSS Frameworks -->
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Tailwind CSS">
-                                <i class="fas fa-paint-brush fa-6x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Bootstrap">
-                                <i class="fab fa-bootstrap fa-6x" style="color: #ffffff;"></i>
-                            </span>
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Material UI">
-                                <i class="fab fa-react fa-6x" style="color: #ffffff;"></i>
-                            </span>
-    
-                            <!-- Animations & Design -->
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="Framer Motion">
-                                <i class="fas fa-wave-square fa-6x" style="color: #ffffff;"></i>
-                            </span>
-    
-                            <!-- Code Editor -->
-                            <span class="skill-badge" data-bs-toggle="tooltip" title="VS Code">
-                                <i class="fas fa-code fa-6x" style="color: #ffffff;"></i>
-                            </span>
-                        
-                        </div>
-                    </div>
-                </div>
-    
             </div>
         </div>
     </section>
-    
-<!-- Enable Bootstrap Tooltips -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl);
-        });
-    });
-</script>
+     <section id="tools" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title gradient-text" data-aos="fade-up">Tools I Use</h2>
+            <div class="row justify-content-center">
+                <div class="col-12 mb-4 d-flex flex-wrap justify-content-center" data-aos="zoom-in">
+                    <span class="skill-badge" data-aos="flip-left">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;"> VS Code
+                        </span>
+                      
+                        <span class="skill-badge" data-aos="flip-left" data-aos-delay="200">
+                            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/cursor.svg" alt="Cursor AI" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;filter:invert(1);"> Cursor AI
+                        </span>
+                        
+                       
+                       
+                       <span class="skill-badge" data-aos="flip-left"><i class="devicon-git-plain colored"></i> Git</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="100"><i class="devicon-github-original colored"></i> GitHub</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="300"><i class="devicon-intellij-plain colored"></i> IntelliJ IDEA</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="400"><i class="devicon-vscode-plain colored"></i> VS Code</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="700"><i class="devicon-postman-plain colored"></i> Postman</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1000"><i class="devicon-heroku-original colored"></i> Heroku</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1500">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" alt="PyCharm" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;"> PyCharm
+</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1600">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/clion/clion-original.svg" alt="CLion" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;"> CLion
+</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1700">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/datagrip/datagrip-original.svg" alt="DataGrip" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;"> DataGrip
+</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="900">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg" alt="Notion" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;"> Notion
+</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1000">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Microsoft Azure" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;"> Microsoft Azure
+</span>
 
+
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1300">
+  <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/namecheap.svg" alt="Namecheap" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;"> Namecheap
+</span>
+<span class="skill-badge" data-aos="flip-left" data-aos-delay="1400">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/digitalocean/digitalocean-original.svg" alt="DigitalOcean" style="width:1.5em;height:1.5em;margin-right:0.5rem;vertical-align:middle;"> DigitalOcean
+</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animated SVG Divider -->
+    <svg class="section-divider" viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,80 C480,0 960,160 1440,80 L1440,0 L0,0 Z" fill="url(#gradient2)" opacity="0.5"/><defs><linearGradient id="gradient2" x1="0" y1="0" x2="1440" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="#f72585"/><stop offset="1" stop-color="#4361ee"/></linearGradient></defs></svg>
 
     <!-- Education Section -->
     <section id="education">
         <div class="container">
-            <h2 class="text-center mb-5 section-title gradient-text" data-aos="fade-up">Education</h2>
+            <h2 class="text-center mb-5 section-title gradient-text" data-aos="fade-up">
+                <i class="devicon-graduation-cap-plain colored me-2"></i>Education
+            </h2>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8" data-aos="fade-up">
-                    <div class="glass-card p-4">
+                    <div class="glass-card p-4 position-relative" style="background:#101018;">
                         <div class="row align-items-center">
                             <div class="col-md-2 text-center mb-3 mb-md-0">
-                                <img src="image/klu.JPG" alt="KL University" width="80" class="rounded-circle">
+                                <img src="image/klu.JPG" alt="KL University" width="80" class="rounded-circle border border-3 border-primary shadow-sm">
+                                <div class="mt-2">
+                                    <i class="devicon-university-plain colored fa-2x"></i>
+                                </div>
                             </div>
                             <div class="col-md-10">
-                                <h4>Koneru Lakshmaiah Education Foundation, Guntur</h4>
-                                <p class="mb-1">Bachelor of Technology - Computer Science and Engineering</p>
-                                <p class="mb-1">August 2023 - 2027 | CGPA: 8.6</p>
+                                <h4 class="d-flex align-items-center mb-2">
+                                    <i class="devicon-graduation-cap-plain colored me-2"></i>
+                                    Koneru Lakshmaiah Education Foundation, Guntur
+                                </h4>
+                                <p class="mb-1 d-flex align-items-center">
+                                    <i class="devicon-degree-plain colored me-2"></i>
+                                    Bachelor of Technology - Computer Science and Engineering
+                                </p>
+                                <p class="mb-1 d-flex align-items-center">
+                                    <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                    August 2023 - 2027 | CGPA: 8.6
+                                </p>
+                                <p class="mb-0 d-flex align-items-center">
+                                    <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                    Guntur, Andhra Pradesh, India
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-             
-                
                 </div>
             </div>
         </div>
@@ -945,181 +1009,154 @@
 
   <!-- Projects Section -->
 <section id="projects">
-    <div class="container">
-        <h2 class="text-center mb-5 section-title gradient-text" data-aos="fade-up">Projects</h2>
-        <div class="row g-4">
-            
-   
-            
-            <!-- Job Portal -->
-            <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
-                <div class="glass-card card-3d h-100 project-card">
-                    <img src="image/job.jpg" alt="Job Portal" class="project-img">
-                    <div class="p-4">
-                        <h5>Job Portal</h5>
-                        <p class="mb-3">A feature-rich web app connecting job seekers with employers, facilitating job search, applications, and recruitment management.</p>
-                        <div class="mb-3">
-                            <span class="badge bg-primary me-1">ReactJS</span>
-                            <span class="badge bg-primary me-1">NodeJS</span>
-                            <span class="badge bg-primary me-1">ExpressJS</span>
-                            <span class="badge bg-primary">MongoDB</span>
+            <div class="container">
+                <h2 class="text-center mb-5 section-title gradient-text" data-aos="fade-up">Projects</h2>
+                <div class="row g-4 justify-content-center">
+                    <!-- Project Card Example 1 -->
+                    <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-card card-3d h-100 project-card position-relative premium-project-card p-0" style="background: #101018; border:2px solid #222; box-shadow:0 8px 32px 0 #000a,0 1.5px 8px 0 #f7258533;">
+                            <div class="project-img-wrapper">
+                                <img src="image/job.jpg" alt="NextHire" class="project-img">
+                                <span class="project-badge premium-badge" title="Premium Project"><i class="fas fa-gem"></i></span>
+                            </div>
+                            <div class="p-3">
+                                <h5 class="mb-2 d-flex align-items-center gap-2" style="font-size:1.1rem;"><i class="fas fa-briefcase text-primary"></i> NextHire</h5>
+                                <p class="mb-2" style="font-size:0.95rem;">
+                                    A modern job portal that streamlines recruitment by connecting job seekers and employers. Features secure authentication, real-time chat, video interviews, and integrated AI tools for smarter hiring and candidate preparation.
+                                    <br><strong>Technologies Used:</strong> React.js, Node.js, Express.js, MongoDB, WebSockets, JWT, Bcrypt, AI APIs.
+                                </p>
+                                <div class="d-flex flex-wrap gap-2 mb-2">
+                                    <span class="badge bg-gradient bg-primary text-white"><i class="fab fa-react me-1"></i>React</span>
+                                    <span class="badge bg-gradient bg-success text-white"><i class="fab fa-node-js me-1"></i>Node.js</span>
+                                    <span class="badge bg-gradient bg-dark text-white"><i class="fab fa-mdb me-1"></i>MongoDB</span>
+                                </div>
+                                <div class="d-flex gap-2 mt-2">
+                                    <a href="https://github.com/its-pratyushpandey/NextHire.git" target="_blank" class="btn btn-sm btn-outline-light project-btn" title="Source Code"><i class="fab fa-github"></i></a>
+                                    <a href="https://job-portal-demo-link.com" target="_blank" class="btn btn-sm btn-gradient-primary project-btn premium-demo-btn" title="Live Demo" style="background:linear-gradient(45deg,#f72585,#4361ee);color:#fff;font-weight:600;"><i class="fas fa-play-circle me-1"></i>Demo</a>
+                                    <button type="button" class="btn btn-sm btn-outline-info project-btn" title="Project Details" data-bs-toggle="modal" data-bs-target="#project1Modal"><i class="fas fa-info-circle"></i></button>
+                                </div>
+                            </div>
                         </div>
-                        <a href="https://github.com/its-pratyushpandey/job-portal-1.git" target="_blank" class="modern-btn modern-btn-outline btn-sm">
-                            <i class="fab fa-github me-1"></i>View Code
-                        </a>
                     </div>
+                    <!-- Doorstep Project Card -->
+                    <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-card card-3d h-100 project-card position-relative premium-project-card p-0" style="background: #101018; border:2px solid #222; box-shadow:0 8px 32px 0 #000a,0 1.5px 8px 0 #f7258533;">
+                            <div class="project-img-wrapper">
+                                <img src="image/doorstep.jpg" alt="Doorstep Ecommerce" class="project-img">
+                                <span class="project-badge premium-badge" title="Premium Project"><i class="fas fa-gem"></i></span>
+                            </div>
+                            <div class="p-3">
+                                <h5 class="mb-2 d-flex align-items-center gap-2" style="font-size:1.1rem;"><i class="fas fa-shopping-cart text-success"></i> Doorstep Ecommerce</h5>
+                                <p class="mb-2" style="font-size:0.95rem;">
+                                    A collaborative code editor enabling teams to write, edit, and preview code in real time. Built with Django and WebSockets, it offers multi-language support, secure sessions, and AI-powered coding assistance for productive teamwork.
+                                    <br><strong>Technologies Used:</strong> Django, WebSockets, Redis.
+                                </p>
+                                <div class="d-flex flex-wrap gap-2 mb-2">
+                                    <span class="badge bg-gradient bg-primary text-white"><i class="fab fa-react me-1"></i>React</span>
+                                    <span class="badge bg-gradient bg-success text-white"><i class="fab fa-node-js me-1"></i>Node.js</span>
+                                    <span class="badge bg-gradient bg-dark text-white"><i class="fab fa-mdb me-1"></i>MongoDB</span>
+                                </div>
+                                <div class="d-flex gap-2 mt-2">
+                                    <a href="https://github.com/its-pratyushpandey/finaldoorstep.git" target="_blank" class="btn btn-sm btn-outline-light project-btn" title="Source Code"><i class="fab fa-github"></i></a>
+                                    <a href="https://doorstep-frontend1.onrender.com" target="_blank" class="btn btn-sm btn-gradient-primary project-btn premium-demo-btn" title="Live Demo" style="background:linear-gradient(45deg,#f72585,#4361ee);color:#fff;font-weight:600;"><i class="fas fa-play-circle me-1"></i>Demo</a>
+                                    <button type="button" class="btn btn-sm btn-outline-info project-btn" title="Project Details" data-bs-toggle="modal" data-bs-target="#doorstepModal"><i class="fas fa-info-circle"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Collaborative Code Editor Project Card -->
+                    <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
+                        <div class="glass-card card-3d h-100 project-card position-relative premium-project-card p-0" style="background: #101018; border:2px solid #222; box-shadow:0 8px 32px 0 #000a,0 1.5px 8px 0 #f7258533;">
+                            <div class="project-img-wrapper">
+                                <img src="image/codeeditor.jpg" alt="Collaborative Code Editor" class="project-img">
+                                <span class="project-badge premium-badge" title="Premium Project"><i class="fas fa-gem"></i></span>
+                            </div>
+                            <div class="p-3">
+                                <h5 class="mb-2 d-flex align-items-center gap-2" style="font-size:1.1rem;"><i class="fas fa-code text-warning"></i> Collaborative Code Editor</h5>
+                                <p class="mb-2" style="font-size:0.95rem;">
+                                    A real-time collaborative code editor supporting multiple users, syntax highlighting, and live code sharing.
+                                </p>
+                                <div class="d-flex flex-wrap gap-2 mb-2">
+                                    <span class="badge bg-gradient bg-primary text-white"><i class="fab fa-react me-1"></i>React</span>
+                                    <span class="badge bg-gradient bg-success text-white"><i class="fab fa-node-js me-1"></i>Node.js</span>
+                                    <span class="badge bg-gradient bg-dark text-white"><i class="fab fa-js-square me-1"></i>Socket.io</span>
+                                </div>
+                                <div class="d-flex gap-2 mt-2">
+                                    <a href="https://github.com/its-pratyushpandey/collaborative-code-editor" target="_blank" class="btn btn-sm btn-outline-light project-btn" title="Source Code"><i class="fab fa-github"></i></a>
+                                    <a href="https://code-sync-live.vercel.app/" target="_blank" class="btn btn-sm btn-gradient-primary project-btn premium-demo-btn" title="Live Demo" style="background:linear-gradient(45deg,#f72585,#4361ee);color:#fff;font-weight:600;"><i class="fas fa-play-circle me-1"></i>Demo</a>
+                                    <button type="button" class="btn btn-sm btn-outline-info project-btn" title="Project Details" data-bs-toggle="modal" data-bs-target="#codeEditorModal"><i class="fas fa-info-circle"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Only Job Portal project remains -->
                 </div>
             </div>
-
-            <!-- Video Streaming Platform -->
-            <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
-                <div class="glass-card card-3d h-100 project-card">
-                    <img src="image/video.jpg" alt="Video Streaming Platform" class="project-img">
-                    <div class="p-4">
-                        <h5>Video Streaming Platform</h5>
-                        <p class="mb-3">A dynamic web-based platform that enables users to stream, upload, and manage videos with seamless playback functionality.</p>
-                        <div class="mb-3">
-                            <span class="badge bg-primary me-1">ReactJS</span>
-                            <span class="badge bg-primary me-1">ExpressJS</span>
-                            <span class="badge bg-primary me-1">MongoDB</span>
-                            <span class="badge bg-primary">Bootstrap</span>
-                        </div>
-                        <a href="https://github.com/its-pratyushpandey/Video-Streaming.git " target="_blank" class="modern-btn modern-btn-outline btn-sm">
-                            <i class="fab fa-github me-1"></i>View Code
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Spotify Clone -->
-            <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="400">
-                <div class="glass-card card-3d h-100 project-card">
-                    <img src="image/spotify.jpg" alt="Spotify Clone" class="project-img">
-                    <div class="p-4">
-                        <h5>Spotify Clone</h5>
-                        <p class="mb-3">A music streaming web app with playlists, search, and song recommendations powered by React and Spotify API.</p>
-                        <div class="mb-3">
-                            <span class="badge bg-primary me-1">HTML</span>
-                            <span class="badge bg-primary me-1">CSS</span>
-                            <span class="badge bg-primary me-1">JavaScript</span>
-                        </div>
-                        <a href="https://github.com/its-pratyushpandey/Spotify-clone.git" target="_blank" class="modern-btn modern-btn-outline btn-sm">
-                            <i class="fab fa-github me-1"></i>View Code
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Doorstep E-Commerce App -->
-            <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="600">
-                <div class="glass-card card-3d h-100 project-card">
-                    <img src="image/doorstep.jpg" alt="Doorstep E-Commerce App" class="project-img">
-                    <div class="p-4">
-                        <h5>Doorstep E-Commerce</h5>
-                        <p class="mb-3">An e-commerce platform allowing users to browse products, add to cart, and make secure purchases.</p>
-                        <div class="mb-3">
-                            <span class="badge bg-primary me-1">ReactJS</span>
-                            <span class="badge bg-primary me-1">NodeJS</span>
-                            <span class="badge bg-primary me-1">Express</span>
-                            <span class="badge bg-primary">MongoDB</span>
-                        </div>
-                        <a href="https://github.com/its-pratyushpandey/latestdoorstep.git" target="_blank" class="modern-btn modern-btn-outline btn-sm">
-                            <i class="fab fa-github me-1"></i>View Code
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Snake Game -->
-            <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="800">
-                <div class="glass-card card-3d h-100 project-card">
-                    <img src="image/snake.jpg" alt="Snake Game" class="project-img">
-                    <div class="p-4">
-                        <h5>Snake Game</h5>
-                        <p class="mb-3">A classic Snake Game built using the MERN stack, with real-time leaderboard and user authentication.</p>
-                        <div class="mb-3">
-                            <span class="badge bg-primary me-1">ReactJS</span>
-                            <span class="badge bg-primary me-1">NodeJS</span>
-                            <span class="badge bg-primary me-1">ExpressJS</span>
-                            <span class="badge bg-primary">MongoDB</span>
-                        </div>
-                        <a href="https://github.com/its-pratyushpandey/snake-game-for-fun.git" target="_blank" class="modern-btn modern-btn-outline btn-sm">
-                            <i class="fab fa-github me-1"></i>View Code
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
+        </section>
 
 
     <!-- Achievement Section -->
     <section id="achievement">
         <div class="container">
-            <h2 class="text-center mb-5 section-title gradient-text" data-aos="fade-up">Achievements & Certification</h2>
+            <h2 class="text-center mb-5 section-title gradient-text" data-aos="fade-up">
+                <i class="fas fa-award text-warning me-2"></i>Achievements & Certification
+            </h2>
             <div class="row g-4">
-                <!-- Aviatrix Certificate -->
-                <div class="row g-4">
-                    <!-- Aviatrix Certificate -->
                     <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-card card-3d h-100">
+                        <div class="glass-card card-3d h-100 premium-project-card position-relative" style="background:rgba(10,10,20,0.95);border:2px solid #222;box-shadow:0 8px 32px 0 #000a,0 1.5px 8px 0 #f7258533;">
                             <div class="p-4">
-                                <h5>Aviatrix - Multicloud Network Associate</h5>
-                                <p class="mb-3">Certificate in multicloud networking solutions.</p>
-                                <span class="badge bg-primary rounded-pill">Certificate</span>
+                                <h5 class="d-flex align-items-center mb-2">
+                                    <span class="me-2 premium-badge" style="background:linear-gradient(45deg,#f72585,#4361ee);color:#fff;border-radius:50%;padding:0.4em 0.5em;box-shadow:0 2px 8px #3a0ca355;"><i class="fas fa-certificate"></i></span>
+                                    Aviatrix - Multicloud Network Associate
+                                </h5>
+                                <p class="mb-3"><i class="fas fa-network-wired text-primary me-2"></i>Certificate in multicloud networking solutions.</p>
+                                <span class="badge bg-gradient bg-primary text-white rounded-pill mb-2"><i class="fas fa-award me-1"></i>Certificate</span>
                                 <br>
-                                <a href="Aviatrix.pdf" download class="btn btn-outline-primary mt-3">
-                                    <i class="fas fa-download"></i> Download Certificate
-                                </a>
+                                <a href="Aviatrix.pdf" download class="btn btn-outline-primary btn-sm mt-2 premium-badge"><i class="fas fa-download"></i> Download Certificate</a>
                             </div>
                         </div>
                     </div>
-                
-                    <!-- Salesforce AI Associate Certificate -->
                     <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-card card-3d h-100">
+                        <div class="glass-card card-3d h-100 premium-project-card position-relative" style="background:rgba(10,10,20,0.95);border:2px solid #222;box-shadow:0 8px 32px 0 #000a,0 1.5px 8px 0 #f7258533;">
                             <div class="p-4">
-                                <h5>Salesforce - AI Associate</h5>
-                                <p class="mb-3">Certified AI Associate in Salesforce ecosystem.</p>
-                                <span class="badge bg-primary rounded-pill">Certificate</span>
+                                <h5 class="d-flex align-items-center mb-2">
+                                    <span class="me-2 premium-badge" style="background:linear-gradient(45deg,#f72585,#4361ee);color:#fff;border-radius:50%;padding:0.4em 0.5em;box-shadow:0 2px 8px #3a0ca355;"><i class="fas fa-robot"></i></span>
+                                    Salesforce - AI Associate
+                                </h5>
+                                <p class="mb-3"><i class="fas fa-brain text-info me-2"></i>Certified AI Associate in Salesforce ecosystem.</p>
+                                <span class="badge bg-gradient bg-primary text-white rounded-pill mb-2"><i class="fas fa-award me-1"></i>Certificate</span>
                                 <br>
-                                <a href="Salesforce.pdf" download class="btn btn-outline-primary mt-3">
-                                    <i class="fas fa-download"></i> Download Certificate
-                                </a>
+                                <a href="Salesforce.pdf" download class="btn btn-outline-primary btn-sm mt-2 premium-badge"><i class="fas fa-download"></i> Download Certificate</a>
                             </div>
                         </div>
                     </div>
-                
-                    <!-- Linguaskill Certificate -->
                     <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
-                        <div class="glass-card card-3d h-100">
+                        <div class="glass-card card-3d h-100 premium-project-card position-relative" style="background:rgba(10,10,20,0.95);border:2px solid #222;box-shadow:0 8px 32px 0 #000a,0 1.5px 8px 0 #f7258533;">
                             <div class="p-4">
-                                <h5>Linguaskill - English Proficiency</h5>
-                                <p class="mb-3">Certified in English proficiency by Cambridge Assessment.</p>
-                                <span class="badge bg-primary rounded-pill">Certificate</span>
+                                <h5 class="d-flex align-items-center mb-2">
+                                    <span class="me-2 premium-badge" style="background:linear-gradient(45deg,#f72585,#4361ee);color:#fff;border-radius:50%;padding:0.4em 0.5em;box-shadow:0 2px 8px #3a0ca355;"><i class="fas fa-language"></i></span>
+                                    Linguaskill - English Proficiency
+                                </h5>
+                                <p class="mb-3"><i class="fas fa-globe text-success me-2"></i>Certified in English proficiency by Cambridge Assessment.</p>
+                                <span class="badge bg-gradient bg-primary text-white rounded-pill mb-2"><i class="fas fa-award me-1"></i>Certificate</span>
                                 <br>
-                                <a href="linguaskill.pdf" download class="btn btn-outline-primary mt-3">
-                                    <i class="fas fa-download"></i> Download Certificate
-                                </a>
+                                <a href="linguaskill.pdf" download class="btn btn-outline-primary btn-sm mt-2 premium-badge"><i class="fas fa-download"></i> Download Certificate</a>
                             </div>
                         </div>
                     </div>
-                
-                    <!-- Smart India Hackathon -->
                     <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="glass-card card-3d h-100">
+                        <div class="glass-card card-3d h-100 premium-project-card position-relative" style="background:rgba(10,10,20,0.95);border:2px solid #222;box-shadow:0 8px 32px 0 #000a,0 1.5px 8px 0 #f7258533;">
                             <div class="p-4">
-                                <h5>Smart India Hackathon</h5>
-                                <p class="mb-3">Participated in the national-level hackathon competition.</p>
-                                <span class="badge bg-success rounded-pill">Participant</span>
+                                <h5 class="d-flex align-items-center mb-2">
+                                    <span class="me-2 premium-badge" style="background:linear-gradient(45deg,#f72585,#4361ee);color:#fff;border-radius:50%;padding:0.4em 0.5em;box-shadow:0 2px 8px #3a0ca355;"><i class="fas fa-trophy"></i></span>
+                                    Smart India Hackathon
+                                </h5>
+                                <p class="mb-3"><i class="fas fa-users text-warning me-2"></i>Participated in the national-level hackathon competition.</p>
+                                <span class="badge bg-gradient bg-success text-white rounded-pill mb-2"><i class="fas fa-users me-1"></i>Participant</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-            </div>
         </div>
     </section>
 
@@ -1134,19 +1171,19 @@
                         <h4 class="gradient-text mb-4">Contact Info</h4>
                         <div class="contact-item">
                             <div class="d-flex align-items-center">
-                                <i class="fas fa-envelope me-3 fa-lg"></i>
+                                <i class="fas fa-envelope me-3 fa-lg gradient-text"></i>
                                 <a href="mailto:pratyush21072005@gmail.com">pratyush21072005@gmail.com</a>
                             </div>
                         </div>
                         <div class="contact-item">
                             <div class="d-flex align-items-center">
-                                <i class="fas fa-phone me-3 fa-lg"></i>
+                                <i class="fas fa-phone me-3 fa-lg gradient-text"></i>
                                 <a href="tel:+917562920811">+91 7562920811</a>
                             </div>
                         </div>
                         <div class="contact-item">
                             <div class="d-flex align-items-center">
-                                <i class="fas fa-map-marker-alt me-3 fa-lg"></i>
+                                <i class="fas fa-map-marker-alt me-3 fa-lg gradient-text"></i>
                                 <span>Guntur, Andhra Pradesh, India</span>
                             </div>
                         </div>
@@ -1191,7 +1228,7 @@
             <div class="row g-4">
                 <div class="col-lg-4" data-aos="fade-up">
                     <h4 class="gradient-text mb-4">About Me</h4>
-                    <p>I am Pratyush Kumar Pandey, a Computer Science student with a strong foundation in Java, JavaScript, and full-stack development. I have experience building and deploying web and mobile applications, including job portals, learning management systems, and video streaming platforms. Proficient in both front-end and back-end technologies, I am passionate about developing innovative solutions, optimizing performance, and continuously expanding my technical expertise.</p>
+                    <p>I am Pratyush Kumar Pandey, a Computer Science student with a strong foundation in Java, JavaScript, and full-stack development. I have experience building and deploying web and mobile applications, including job portals, Colleborative code editor, and video streaming platforms. Proficient in both front-end and back-end technologies, I am passionate about developing innovative solutions, optimizing performance, and continuously expanding my technical expertise.</p>
                 </div>
 
                 <div class="col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="100">
@@ -1212,13 +1249,13 @@
                     <h5 class="gradient-text mb-4">Connect with Me</h5>
                     <div class="d-flex gap-3 mt-4">
                         <a href="https://www.linkedin.com/in/pratyush-pandey1/" target="_blank" class="social-icon">
-                            <i class="fab fa-linkedin-in fa-lg"></i>
+                            <i class="devicon-linkedin-plain colored fa-lg"></i>
                         </a>
                         <a href="https://github.com/its-pratyushpandey" target="_blank" class="social-icon">
-                            <i class="fab fa-github fa-lg"></i>
+                            <i class="devicon-github-original colored fa-lg"></i>
                         </a>
-                        <a href="https://www.codechef.com/users/kl_2300030557" target="_blank" class="social-icon">
-                            <i class="fas fa-utensils fa-lg"></i>
+                        <a href="https://wa.me/917562920811" target="_blank" class="social-icon" title="WhatsApp">
+                            <i class="fab fa-whatsapp fa-lg" style="color:#25D366;"></i>
                         </a>
                     </div>
                 </div>
@@ -1229,6 +1266,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.3.0/tsparticles.bundle.min.js"></script>
     <script>
         // Initialize AOS animation
         AOS.init({
@@ -1246,30 +1284,23 @@
 
         function typeWriter() {
             const currentText = typeStrings[currentString];
-
             if (isDeleting) {
-                dynamicText.textContent = currentText.substring(0, currentChar - 1);
-                currentChar--;
+                dynamicText.textContent = currentText.substring(0, currentChar--);
                 typingSpeed = 50;
             } else {
-                dynamicText.textContent = currentText.substring(0, currentChar + 1);
-                currentChar++;
+                dynamicText.textContent = currentText.substring(0, currentChar++);
                 typingSpeed = 100;
             }
-
-            if (!isDeleting && currentChar === currentText.length) {
+            if (!isDeleting && currentChar === currentText.length + 1) {
+                typingSpeed = 1200;
                 isDeleting = true;
-                typingSpeed = 1500; // Pause at end
             } else if (isDeleting && currentChar === 0) {
                 isDeleting = false;
                 currentString = (currentString + 1) % typeStrings.length;
-                typingSpeed = 500; // Pause before typing next
+                typingSpeed = 400;
             }
-
             setTimeout(typeWriter, typingSpeed);
         }
-
-        // Start the typewriter effect after 1 second
         setTimeout(typeWriter, 1000);
 
         // Navbar scroll effect
@@ -1285,15 +1316,11 @@
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
                     window.scrollTo({
-                        top: targetElement.offsetTop - 70,
+                        top: target.offsetTop - 70,
                         behavior: 'smooth'
                     });
                 }
@@ -1303,19 +1330,14 @@
         // Add active class to current section in navbar
         const sections = document.querySelectorAll('section');
         const navItems = document.querySelectorAll('.nav-hover');
-
         window.addEventListener('scroll', () => {
             let current = '';
-
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-
-                if (pageYOffset >= (sectionTop - 100)) {
+                const sectionTop = section.offsetTop - 80;
+                if (pageYOffset >= sectionTop) {
                     current = section.getAttribute('id');
                 }
             });
-
             navItems.forEach(item => {
                 item.classList.remove('active');
                 if (item.getAttribute('href') === `#${current}`) {
@@ -1324,50 +1346,123 @@
             });
         });
 
-        // Form submission
-        const contactForm = document.getElementById('contactForm');
-        const formStatus = document.getElementById('formStatus');
+        // Custom Cursor
+        const cursor = document.getElementById('customCursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`;
+        });
+        document.querySelectorAll('a, button, .skill-badge, .modern-btn, .modern-btn-outline').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.style.transform += ' scale(1.5)');
+            el.addEventListener('mouseleave', () => cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', ''));
+        });
 
-        if (contactForm) {
-            contactForm.addEventListener('submit', async function (e) {
-                e.preventDefault();
-                const submitButton = this.querySelector('button[type="submit"]');
-                const originalButtonText = submitButton.innerHTML;
+        // Scroll Progress Bar
+        const scrollProgress = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+        });
 
-                // Show loading state
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
-                formStatus.innerHTML = '';
-                formStatus.className = 'mt-3 text-center';
-
-                try {
-                    const formData = new FormData(this);
-                    const response = await fetch(this.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-
-                    if (response.ok) {
-                        formStatus.innerHTML = '<div class="alert alert-success">Message sent successfully! I\'ll get back to you soon.</div>';
-                        this.reset();
-                    } else {
-                        const errorData = await response.json();
-                        throw new Error(errorData.error || 'Failed to send message');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    formStatus.innerHTML = `<div class="alert alert-danger">${error.message || 'There was a problem sending your message. Please try again later.'}</div>`;
-                    formStatus.className = 'mt-3 text-center';
-                } finally {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
+        // Particles.js configuration
+        tsParticles.load("tsparticles", {
+            "fullScreen": { "enable": false },
+            "particles": {
+                "number": { "value": 60 },
+                "color": { "value": ["#4361ee", "#f72585", "#fff"] },
+                "shape": { "type": ["circle", "triangle", "edge"] },
+                "opacity": { "value": 0.5 },
+                "size": { "value": { "min": 2, "max": 6 } },
+                "move": { "enable": true, "speed": 1.2, "direction": "none", "outModes": { "default": "out" } },
+                "links": { "enable": true, "distance": 120, "color": "#fff", "opacity": 0.2, "width": 1 }
+            },
+            "interactivity": {
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" },
+                    "onclick": { "enable": true, "mode": "push" }
+                },
+                "modes": {
+                    "repulse": { "distance": 100, "duration": 0.4 },
+                    "push": { "quantity": 4 }
                 }
-            });
+            },
+            "retina_detect": true
+        });
+
+        // Typewriter effect for About Me
+        const aboutStrings = [
+            "Software Developer | Innovator",
+            "MERN Stack Enthusiast",
+            "Building Modern Web Apps",
+            "Always Learning & Growing"
+        ];
+        let aboutCurrent = 0, aboutChar = 0, aboutDeleting = false, aboutSpeed = 90;
+        const aboutText = document.getElementById("about-typewriter-text");
+        function aboutTypeWriter() {
+            if (!aboutText) return;
+            const current = aboutStrings[aboutCurrent];
+            if (aboutDeleting) {
+                aboutText.textContent = current.substring(0, aboutChar--);
+                aboutSpeed = 40;
+            } else {
+                aboutText.textContent = current.substring(0, aboutChar++);
+                aboutSpeed = 90;
+            }
+            if (!aboutDeleting && aboutChar === current.length + 1) {
+                aboutSpeed = 1200;
+                aboutDeleting = true;
+            } else if (aboutDeleting && aboutChar === 0) {
+                aboutDeleting = false;
+                aboutCurrent = (aboutCurrent + 1) % aboutStrings.length;
+                aboutSpeed = 500;
+            }
+            setTimeout(aboutTypeWriter, aboutSpeed);
         }
+        setTimeout(aboutTypeWriter, 1200);
     </script>
+
+    <!-- Project Modals for Details -->
+<div class="modal fade" id="project1Modal" tabindex="-1" aria-labelledby="project1ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="project1ModalLabel"><i class="fas fa-briefcase text-primary me-2"></i>NextHire</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        A full-stack job portal for recruiters and job seekers with authentication, dashboard, and premium features.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="doorstepModal" tabindex="-1" aria-labelledby="doorstepModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="doorstepModalLabel"><i class="fas fa-shopping-cart text-success me-2"></i>Doorstep Ecommerce</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        A modern e-commerce platform for seamless online shopping, order tracking, and doorstep delivery.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="codeEditorModal" tabindex="-1" aria-labelledby="codeEditorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content glass-card">
+      <div class="modal-header">
+        <h5 class="modal-title" id="codeEditorModalLabel"><i class="fas fa-code text-warning me-2"></i>Collaborative Code Editor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        A real-time collaborative code editor supporting multiple users, syntax highlighting, and live code sharing. Built with React, Node.js, and Socket.io. Try the live demo to experience seamless code collaboration!
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Project Modals -->
 </body>
 
 </html>
